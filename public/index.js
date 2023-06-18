@@ -4,6 +4,7 @@ $(document).ready(()=>{
   //Keep track of the current user
   let currentUser;
   socket.emit('get online users');
+  socket.emit('user changed channel', "General");
   $('#create-user-btn').click((e)=>{
     e.preventDefault();
     if($('#username-input').val().length > 0){
@@ -37,6 +38,10 @@ $('#new-channel-btn').click( () => {
     socket.emit('new channel', newChannel);
     $('#new-channel-input').val("");
   }
+});
+$(document).on('click', '.channel', (e)=>{
+  let newChannel = e.target.textContent;
+  socket.emit('user changed channel', newChannel);
 });
   //socket listeners
   socket.on('new user', (username) => {
