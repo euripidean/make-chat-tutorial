@@ -33,6 +33,10 @@ module.exports = (io, socket, onlineUsers, channels) => {
     });
   });
 
+  socket.on('get channels', () => {
+    socket.emit('get channels', channels);
+  });
+
   //Have the socket join the room of the channel
 socket.on('user changed channel', (newChannel) => {
   socket.join(newChannel);

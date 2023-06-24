@@ -4,6 +4,7 @@ $(document).ready(()=>{
   //Keep track of the current user
   let currentUser;
   socket.emit('get online users');
+  socket.emit('get channels');
   socket.emit('user changed channel', "General");
   $('#create-user-btn').click((e)=>{
     e.preventDefault();
@@ -73,6 +74,12 @@ socket.on('get online users', (onlineUsers) => {
 
 socket.on('new channel', (newChannel) => {
   $('.channels').append(`<div class="channel">${newChannel}</div>`);
+});
+
+socket.on('get channels', (channels) => {
+  for(channel in channels){
+    $('.channels').append(`<div class="channel">${channel}</div>`);
+  }
 });
 
 // Make the channel joined the current channel. Then load the messages.
